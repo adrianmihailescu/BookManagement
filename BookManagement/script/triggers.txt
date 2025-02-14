@@ -1,0 +1,737 @@
+ALTER trigger [t2_instead_of_delete] on [User] instead of delete
+as
+begin
+	update [user]
+	
+	set FlagDel = 1
+	
+	from [user] a
+	
+	inner join deleted b
+	on a.IDUser = b.IDUser
+	
+			-- log operation
+	select
+					getdate() [Date]
+		, suser_sname() UserName
+		, host_name() HostName
+	, 'delete from user: '
+	+ cast(a.IDUser as nvarchar(1000)) [Query]
+			, 'user' [Table]
+	into #t1
+	from deleted a
+	
+	-- from inserted a)
+	
+	
+	insert into _OperationsLog
+	select * from #t1
+	
+	drop table #t1
+end
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER trigger [t2_after_update] on [User] after update
+as
+begin
+	select
+			getdate() [Date]
+		, suser_sname() UserName
+		, host_name() HostName
+	, 'update user: '
+	+ cast(a.IDUser as nvarchar(1000))
+	+ ', ' + cast(a.UserName as nvarchar(1000))
+	+ ', ' + cast(a.FullName as nvarchar(1000))
+	+ ', ' + cast(a.Email as nvarchar(1000))
+	+ ', ' + cast(a.[Address] as nvarchar(1000))
+	+ ', ' + cast (isnull(a.FlagDel, '') as nvarchar(1000)) [Query]
+	, 'user' [Table]
+	
+	into #t1
+	
+	from inserted a
+	
+	-- from inserted a)
+	
+	
+	insert into _OperationsLog
+	select * from #t1
+	
+	drop table #t1
+	
+end
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER trigger [t2_after_insert] on [User] after insert
+as
+begin
+	select
+					getdate() [Date]
+		, suser_sname() UserName
+		, host_name() HostName
+	, 'insert into user: '
+	+ cast(a.IDUser as nvarchar(1000))
+	+ ', ' + cast(a.UserName as nvarchar(1000))
+	+ ', ' + cast(a.FullName as nvarchar(1000))
+	+ ', ' + cast(a.Email as nvarchar(1000))
+	+ ', ' + cast(a.[Address] as nvarchar(1000))
+	+ ', ' + cast(a.[CNP] as nvarchar(1000))
+	+ ', ' + cast (isnull(a.FlagDel, '') as nvarchar(1000)) [Query]
+	, 'user' [Table]
+	
+	into #t1
+	from inserted a
+	
+	-- from inserted a)
+	
+	update [user] set FlagDel = 0 where FlagDel is null
+	
+	insert into _OperationsLog
+	select * from #t1
+	
+	drop table #t1
+	
+end
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [GetUserPreviewImage](@id int)
+-- returns varbinary(max)
+as
+begin
+
+declare @result varbinary(max)
+	
+	set @result = (select top 1 [image] from [user] where IDUser = @id)	
+	select @result result
+end
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER trigger [t5_instead_of_delete] on [Author] instead of delete
+as
+begin
+	update author
+	
+	set FlagDel = 1
+	
+	from author a
+	
+	inner join deleted b
+	on a.IDAuthor = b.IDAuthor
+	
+	-- log operation
+	select
+					getdate() [Date]
+		, suser_sname() UserName
+		, host_name() HostName
+	, 'delete from author: '
+	+ cast(a.IDAuthor as nvarchar(1000)) [Query]
+			, 'author' [Table]
+	into #t1
+	from deleted a
+	
+	-- from inserted a)
+	
+	
+	insert into _OperationsLog
+	select * from #t1
+	
+	drop table #t1
+end
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER trigger [t5_after_update] on [Author] after UPDATE
+as
+begin
+	/*
+	declare @query nvarchar(max)
+	
+	set @query = (
+	*/
+	select
+			getdate() [Date]
+		, suser_sname() [UserName]
+		, host_name() [HostName]
+		--, @query
+	, 'update author: '
+	+ cast(a.IDAuthor as nvarchar(1000))
+	+ ', ' + cast (isnull(a.AuthorName, '') as nvarchar(1000))
+	+ ', ' + cast (isnull(a.FlagDel, '') as nvarchar(1000)) [Query]
+	, 'author' [Table]
+	
+	into #t1
+	
+	from inserted a
+	
+	-- from inserted a)
+	
+	
+	insert into _OperationsLog
+	select * from #t1
+	
+	drop table #t1
+	
+end
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER trigger [t5_after_insert] on [Author] after insert
+as
+begin
+	select
+					getdate() [Date]
+		, suser_sname() UserName
+		, host_name() HostName
+	, 'insert into author: '
+	+ cast(a.IDAuthor as nvarchar(1000))
+	+ ', ' + cast (isnull(a.AuthorName, '') as nvarchar(1000))
+	+ ', ' + cast (isnull(a.FlagDel, '') as nvarchar(1000)) [Query]
+	, 'author' [Table]
+	
+	into #t1
+	from inserted a
+	
+	-- from inserted a)
+	
+	update author set FlagDel = 0 where FlagDel is null
+	
+	insert into _OperationsLog
+	select * from #t1
+	
+	drop table #t1
+	
+end
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER trigger [t4_instead_of_delete] on [Category] instead of delete
+as
+begin
+	update category
+	
+	set FlagDel = 1
+	
+	from category a
+	
+	inner join deleted b
+	on a.IDCategory = b.IDCategory
+	
+		-- log operation
+	
+	select
+					getdate() [Date]
+		, suser_sname() UserName
+		, host_name() HostName
+	, 'delete from category: '
+	+ cast(a.IDCategory as nvarchar(1000)) [Query]
+			, 'category' [Table]
+	
+	into #t1	
+	from deleted a
+	
+	-- from inserted a)
+	
+	
+	insert into _OperationsLog
+	select * from #t1
+	
+	drop table #t1
+end
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER trigger [t4_after_update] on [Category] after update
+as
+begin
+	select
+				getdate() [Date]
+		, suser_sname() UserName
+		, host_name() HostName
+	, 'update category: '
+	+ cast(a.IDCategory as nvarchar(1000))
+	+ ', ' + cast(a.CategoryName as nvarchar(1000))
+	+ ', ' + cast (isnull(a.FlagDel, '') as nvarchar(1000)) [Query]
+		, 'category' [Table]
+	
+	into #t1
+	
+	from inserted a
+	
+	-- from inserted a)
+	
+	
+	insert into _OperationsLog
+	select * from #t1
+	
+	drop table #t1
+	
+end
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER trigger [t4_after_insert] on [Category] after insert
+as
+begin
+	select
+					getdate() [Date]
+		, suser_sname() UserName
+		, host_name() HostName
+	, 'insert into category: '
+	+ cast(a.IDCategory as nvarchar(1000))
+	+ ', ' + cast(a.CategoryName as nvarchar(1000))
+	+ ', ' + cast (isnull(a.FlagDel, '') as nvarchar(1000)) [Query]
+			, 'category' [Table]
+	
+	into #t1
+	from inserted a
+	
+	-- from inserted a)
+	
+	update category set FlagDel = 0 where FlagDel is null
+	
+	insert into _OperationsLog
+	select * from #t1
+	
+	drop table #t1
+	
+end
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+ALTER trigger [t3_instead_of_delete] on [Book] instead of delete
+as
+begin
+	update book
+	
+	set FlagDel = 1
+	
+	from book a
+	
+	inner join deleted b
+	on a.IDBook = b.IDBook
+	
+		-- log operation
+	select
+					getdate() [Date]
+		, suser_sname() UserName
+		, host_name() HostName
+	, 'delete from book: '
+	+ cast(a.IDBook as nvarchar(1000)) [Query]
+	, 'book' [Table]
+	
+	into #t1
+	from deleted a
+	
+	-- from inserted a)
+	
+	
+	insert into _OperationsLog
+	select * from #t1
+	
+	drop table #t1
+end
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER trigger [t3_after_update] on [Book] after update
+as
+begin
+	-- declare @query nvarchar(max)
+	
+	-- set @query = (
+	select
+		getdate() [Date]
+		, suser_sname() UserName
+		, host_name() HostName
+	, 'update book: '
+	+ cast(a.IDBook as nvarchar(1000))
+	+ ', ' + cast(a.IDCategory as nvarchar(1000))
+	+ ', ' + cast(a.IDAuthor as nvarchar(1000))
+	+ ', ' + cast(a.BookName as nvarchar(1000))
+	+ ', ' + cast(a.ISBN as nvarchar(1000))
+	+ ', ' + cast(a.Stock as nvarchar(1000))
+	+ ', ' + cast(a.HasDisk as nvarchar(1000))
+	+ ', ' + cast (isnull(a.FlagDel, '') as nvarchar(1000)) [Query]
+	, 'book' [Table]
+	
+	into #t1
+	
+	from inserted a
+	
+	-- )
+	
+
+	
+	insert into _OperationsLog
+	select * from #t1
+	
+	drop table #t1
+end
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER trigger [t3_after_insert] on [Book] after insert
+as
+begin
+	select
+					getdate() [Date]
+		, suser_sname() UserName
+		, host_name() HostName
+	, 'insert into book: '
+	+ cast(a.IDBook as nvarchar(1000))
+	+ ', ' + cast(a.IDCategory as nvarchar(1000))
+	+ ', ' + cast(a.IDAuthor as nvarchar(1000))
+	+ ', ' + cast(a.BookName as nvarchar(1000))
+	+ ', ' + cast(a.ISBN as nvarchar(1000))
+	+ ', ' + cast(a.Stock as nvarchar(1000))
+	+ ', ' + cast(a.HasDisk as nvarchar(1000))
+	+ ', ' + cast (isnull(a.FlagDel, '') as nvarchar(1000)) [Query]
+			, 'book' [Table]
+	into #t1
+	from inserted a
+	
+	-- from inserted a)
+	
+	update book set FlagDel = 0 where FlagDel is null
+	
+	insert into _OperationsLog
+	select * from #t1
+	
+	drop table #t1
+	
+end
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [GetBookPreviewImage](@id int)
+-- returns varbinary(max)
+as
+begin
+
+declare @result varbinary(max)
+	
+	set @result = (select top 1 [image] from Book where IDBook = @id)	
+	select @result result
+end
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER procedure [GetScheduledBooksForTodayByUser]
+(
+@IDUser int
+, @data datetime
+)
+as
+begin
+	select
+	ls.IDLease
+	into #t	
+	from lease ls
+
+	inner join [user] u
+	on ls.IDUser = u.IDUser
+
+	inner join book b
+	on ls.IDBook = b.IDBook
+
+	where
+	cast(ls.ScheduledReturnDate as date) = cast(@data as date) and isnull(ls.FlagDel, 0) = 0
+	and ls.IDUser = @IDUser
+	
+	select count(IDLease) [total] from #t
+	
+	drop table #t
+	-- order by 1 desc, u.FullName
+end
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER procedure [GetScheduledBooksForToday]
+(
+@data datetime
+)
+as
+begin
+	select
+	datediff(dd, ls.ScheduledReturnDate, @data) [Days]
+	, ls.IDLease
+	, ls.ScheduledReturnDate
+	, ls.LeaseDate
+	-- user
+	, u.IDUser
+	, u.UserName
+	, u.FullName
+	, u.Email
+	, u.CNP
+	-- book
+	, b.BookName
+	, b.ISBN
+	, b.IDBook
+	, case b.HasDisk
+		when 1 then 'yes'
+		else 'no' end
+		as HasDisk
+	-- lease
+	, ls.Copies
+	, ls.Remarks
+
+	from lease ls
+
+	inner join [user] u
+	on ls.IDUser = u.IDUser
+
+	inner join book b
+	on ls.IDBook = b.IDBook
+
+	where
+	cast(ls.ScheduledReturnDate as date) <= cast(@data as date) and isnull(ls.FlagDel, 0) = 0
+	order by 1 desc, u.FullName
+end
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER trigger [t1_instead_of_delete] on [Lease] instead of delete
+as
+begin
+	-- update the existing library's book stock with the returned stock
+	declare @checkAlreadyDeleted int
+	set @checkAlreadyDeleted = (select top 1 FlagDel from deleted)
+	
+	if (isnull(@checkAlreadyDeleted, 0) = 0)
+	begin
+		update book
+		set Stock = (a.Stock + b.Copies)
+		from book a
+		
+		inner join deleted b
+		on a.IDBook = b.IDBook
+		
+		where isnull(a.FlagDel, 0) = 0
+		
+		update lease
+		
+		set
+		FlagDel = 1
+		, ActualReturnDate = getdate() -- update the book lease as returned
+		from lease a
+		
+		inner join deleted b
+		on a.IDLease = b.IDLease
+			
+		-- log operation
+		select
+						getdate() [Date]
+			, suser_sname() UserName
+			, host_name() HostName
+		, 'delete from lease: '
+		+ cast(a.IDLease as nvarchar(1000)) [Query]
+		, 'lease' [Table]
+		
+		into #t1	
+		from deleted a
+		
+		-- from inserted a)
+		
+		
+		insert into _OperationsLog
+		select * from #t1
+		
+		drop table #t1
+	end
+end
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER trigger [t1_after_update] on [Lease] after UPDATE
+as
+begin
+	
+	
+	select
+			getdate() [Date]
+		, suser_sname() UserName
+		, host_name() HostName
+	, 'update lease: '
+	+ cast(a.IDLease as nvarchar(1000))
+	+ ', ' + cast(a.IDBook as nvarchar(1000))
+	+ ', ' + cast(a.IDUser as nvarchar(1000))
+	+ ', ' + cast(a.LeaseDate as nvarchar(1000))
+	+ ', ' + cast(a.ScheduledReturnDate as nvarchar(1000))
+	+ ', ' + cast(a.ActualReturnDate as nvarchar(1000))
+	+ ', ' + cast(a.Copies as nvarchar(1000))
+	+ ', ' + cast (isnull(a.FlagDel, '') as nvarchar(1000)) [Query]
+	, 'lease' [Table]
+	into #t1	
+	from inserted a
+	
+	-- from inserted a)
+	
+	
+	insert into _OperationsLog
+	select * from #t1
+	
+	drop table #t1
+	
+end
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER trigger [t1_after_insert] on [Lease] after insert
+as
+begin
+	select
+					getdate() [Date]
+		, suser_sname() UserName
+		, host_name() HostName
+	, 'insert into lease: '
+	+ cast(a.IDLease as nvarchar(1000))
+	+ ', ' + cast(a.IDBook as nvarchar(1000))
+	+ ', ' + cast(a.IDUser as nvarchar(1000))
+	+ ', ' + cast(isnull(a.LeaseDate, '') as nvarchar(1000))
+	+ ', ' + cast(isnull(a.ScheduledReturnDate, '') as nvarchar(1000))
+	+ ', ' + cast(isnull(a.ActualReturnDate, '') as nvarchar(1000))
+	+ ', ' + cast(a.Copies as nvarchar(1000))
+	+ ', ' + cast (isnull(a.FlagDel, '') as nvarchar(1000)) [Query]
+	, 'lease' [Table]
+	
+	into #t1
+	from inserted a
+	
+	-- from inserted a)
+	
+	-- mark the record as not deleted
+	update lease set FlagDel = 0 where FlagDel is null
+	
+	update lease set ActualReturnDate = null
+	
+	from lease a
+	
+	inner join inserted b
+	on a.IDLease = b.IDLease
+	
+	-- substract the lease book's stock from the 
+	-- declare @StockToSubstract int
+	update book
+	set Stock = (a.Stock - b.Copies)
+	from book a
+	
+	inner join inserted b
+	on a.IDBook = b.IDBook
+	
+	-- log the operation
+	insert into _OperationsLog
+	select * from #t1
+	
+	drop table #t1
+	
+end
+GO
+
+
+GO
+/****** Object:  StoredProcedure [dbo].[LogError]    Script Date: 05/17/2013 12:38:55 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+ALTER procedure [dbo].[LogError]
+(
+	@Date datetime
+	, @Url varchar(max)
+	, @Message varchar(max)
+	, @InnerException varchar(max)
+	, @StackTrace varchar(max)
+	, @Source varchar(max)
+)
+
+as
+begin
+	insert into _AppError
+	values
+	(
+		getdate()
+		, @Url
+		, @Message
+		, @InnerException
+		, @StackTrace
+		, @Source
+	)
+end
+
+
+
+/****** Object:  Table [dbo].[_AppError]    Script Date: 05/17/2013 12:40:22 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[_AppError](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[Date] [datetime] NOT NULL,
+	[Url] [varchar](max) NULL,
+	[Message] [varchar](max) NULL,
+	[InnerException] [varchar](max) NULL,
+	[StackTrace] [varchar](max) NULL,
+	[Source] [varchar](max) NULL,
+ CONSTRAINT [PK__AppErrors] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+

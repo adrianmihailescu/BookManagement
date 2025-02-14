@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BookManagementModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="BookManagementModelStoreContainer">
+    <EntitySet Name="Author" EntityType="BookManagementModel.Store.Author" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Book" EntityType="BookManagementModel.Store.Book" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Category" EntityType="BookManagementModel.Store.Category" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Lease" EntityType="BookManagementModel.Store.Lease" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="User" EntityType="BookManagementModel.Store.User" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_Book_Author" Association="BookManagementModel.Store.FK_Book_Author">
+      <End Role="Author" EntitySet="Author" />
+      <End Role="Book" EntitySet="Book" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Book_Category" Association="BookManagementModel.Store.FK_Book_Category">
+      <End Role="Category" EntitySet="Category" />
+      <End Role="Book" EntitySet="Book" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Lease_Book" Association="BookManagementModel.Store.FK_Lease_Book">
+      <End Role="Book" EntitySet="Book" />
+      <End Role="Lease" EntitySet="Lease" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Lease_Users" Association="BookManagementModel.Store.FK_Lease_Users">
+      <End Role="User" EntitySet="User" />
+      <End Role="Lease" EntitySet="Lease" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Author">
+    <Key>
+      <PropertyRef Name="IDAuthor" />
+    </Key>
+    <Property Name="IDAuthor" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="AuthorName" Type="nvarchar" Nullable="false" MaxLength="1000" />
+    <Property Name="FlagDel" Type="bit" />
+  </EntityType>
+  <EntityType Name="Book">
+    <Key>
+      <PropertyRef Name="IDBook" />
+    </Key>
+    <Property Name="IDBook" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="IDCategory" Type="int" Nullable="false" />
+    <Property Name="IDAuthor" Type="int" Nullable="false" />
+    <Property Name="BookName" Type="nvarchar" Nullable="false" MaxLength="1000" />
+    <Property Name="ISBN" Type="nvarchar" Nullable="false" MaxLength="1000" />
+    <Property Name="Stock" Type="int" Nullable="false" />
+    <Property Name="HasDisk" Type="bit" />
+    <Property Name="FlagDel" Type="bit" />
+    <Property Name="Image" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="IDCategory" />
+    </Key>
+    <Property Name="IDCategory" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="CategoryName" Type="nvarchar" MaxLength="1000" />
+    <Property Name="FlagDel" Type="bit" />
+  </EntityType>
+  <EntityType Name="Lease">
+    <Key>
+      <PropertyRef Name="IDLease" />
+    </Key>
+    <Property Name="IDLease" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="IDBook" Type="int" Nullable="false" />
+    <Property Name="IDUser" Type="int" Nullable="false" />
+    <Property Name="LeaseDate" Type="datetime" />
+    <Property Name="ScheduledReturnDate" Type="datetime" Nullable="false" />
+    <Property Name="ActualReturnDate" Type="datetime" />
+    <Property Name="Copies" Type="int" Nullable="false" />
+    <Property Name="FlagDel" Type="bit" />
+    <Property Name="Remarks" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="IDUser" />
+    </Key>
+    <Property Name="IDUser" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="nvarchar" Nullable="false" MaxLength="1000" />
+    <Property Name="FullName" Type="nvarchar" Nullable="false" MaxLength="1000" />
+    <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="1000" />
+    <Property Name="Address" Type="nvarchar" Nullable="false" MaxLength="1000" />
+    <Property Name="FlagDel" Type="bit" />
+  </EntityType>
+  <Association Name="FK_Book_Author">
+    <End Role="Author" Type="BookManagementModel.Store.Author" Multiplicity="1" />
+    <End Role="Book" Type="BookManagementModel.Store.Book" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Author">
+        <PropertyRef Name="IDAuthor" />
+      </Principal>
+      <Dependent Role="Book">
+        <PropertyRef Name="IDAuthor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Book_Category">
+    <End Role="Category" Type="BookManagementModel.Store.Category" Multiplicity="1" />
+    <End Role="Book" Type="BookManagementModel.Store.Book" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="IDCategory" />
+      </Principal>
+      <Dependent Role="Book">
+        <PropertyRef Name="IDCategory" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Lease_Book">
+    <End Role="Book" Type="BookManagementModel.Store.Book" Multiplicity="1" />
+    <End Role="Lease" Type="BookManagementModel.Store.Lease" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Book">
+        <PropertyRef Name="IDBook" />
+      </Principal>
+      <Dependent Role="Lease">
+        <PropertyRef Name="IDBook" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Lease_Users">
+    <End Role="User" Type="BookManagementModel.Store.User" Multiplicity="1" />
+    <End Role="Lease" Type="BookManagementModel.Store.Lease" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="IDUser" />
+      </Principal>
+      <Dependent Role="Lease">
+        <PropertyRef Name="IDUser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

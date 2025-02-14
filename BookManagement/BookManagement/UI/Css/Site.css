@@ -1,0 +1,290 @@
+﻿.loadingPleaseWait {
+    display: block;   
+}
+
+.loadingPleaseWaitNone {
+    display: none;   
+}
+
+.lineBreak
+{
+    color: #dd7500;
+    background-image: url('../../../../DynamicData/Content/Images/endava/bg-subpage.gif');/* 2 */
+    background-repeat: repeat-x;
+}
+
+.lineBreakSmall
+{
+    color: #dd7500;
+    background-image: url('../../../../DynamicData/Content/Images/endava/bg-subpage%20small.gif');
+    background-repeat: repeat-x;
+}
+
+td
+{
+    vertical-align: middle;
+}
+
+hr
+{
+    color: #dd7500;
+}
+
+/* img */
+img
+{
+    border: 0px;
+}
+
+.imgHeader
+{
+    width: 30px;
+    height: 30px;
+    border: 0px;
+}
+
+.imgHeaderSmall
+{
+    width: 20px;
+    height: 20px;
+    border: 0px;
+}
+
+.imgShowPreview
+{
+    max-width: 200px;
+    max-height: 200px;
+    border: solid 1px lightgray;
+}
+
+.divInvisible
+{
+    display: none;
+}
+
+.divVisible
+{
+    display:block;
+}
+
+.divInvisibleHeaderSmall
+{
+    display: none;
+}
+
+.divVisibleHeaderSmall
+{
+    display:block;
+    width: 20px;
+    height: 20px;
+    border: 0px;
+}
+
+ .tdVerticalAlignMiddle
+ {
+     vertical-align: middle;
+ }
+ 
+  .tdVerticalAlignMiddleDetails
+ {
+     vertical-align: middle;
+     text-align: right;
+     font-style:italic;
+ }
+ 
+  .TdNumericTextValue
+ {
+     vertical-align: middle;
+     text-align: right;
+ }
+ 
+ span
+ {
+     vertical-align: middle;
+ }
+
+.FieldBoolean, .FieldPicture
+{
+    width: 100%; text-align: center;
+}
+ 
+  /* div */
+ .divShowFilters, .divShowBooksToBeReturnedToday
+ {
+     text-decoration: underline;
+ }
+ 
+.divTextMode
+{
+    max-width: 100px; max-height: 50px; overflow:auto;
+    vertical-align: middle; display: block;
+    text-align: center;
+}
+
+.divTextMode200
+{
+    max-width: 200px; max-height: 50px; overflow:auto;
+    vertical-align: middle; display: block;
+    text-align: left;
+}
+
+.divTextMode500
+{
+    max-width: 500px; max-height: 50px; overflow:auto;
+    vertical-align: middle; display: block;
+    text-align: left;
+}
+
+.divTextModeLeft
+{
+    max-width: 100px; max-height: 50px; overflow:auto;
+    vertical-align: middle; display: block;
+    text-align: left;
+}
+
+.divTextModeRight
+{
+    max-width: 100px; max-height: 50px; overflow:auto;
+    vertical-align: middle; display: block; /* inline-block */
+    text-align: right;
+}
+
+.divListBoxMode
+{
+    max-width: 500px; max-height: 100px; overflow:auto;
+}
+
+.divMainContent
+{
+    width: 980px; overflow: auto;
+}
+
+.shadow
+{
+    box-shadow: 3px 3px 3px #000;
+}
+
+.mainContent, .headerContent
+{
+    width: 980px;
+    margin-left: auto; margin-right: auto;
+    overflow: auto;
+}
+
+table.tableCenter
+{
+    margin-left:auto; 
+    margin-right:auto;
+}
+
+body {
+    /*background-color: #5c87b2;*/
+    background-color: White;
+    /*font-size: .85em;*/
+    /*font-family: "Trebuchet MS", Verdana, Helvetica, Sans-Serif;*/
+    font-family: Calibri;
+    font-size: 14;
+    color: #696969;
+    overflow: scroll;
+}
+
+.BookScheduledToBeReturned
+{
+    /*border: solid 1px #a03033;*/
+    color: #a03033;
+}
+
+.displayNone
+{
+    display: none;
+}
+
+.displayBlock
+{
+    display: block;
+}
+
+/* a */
+a:link {
+    color: #a03033;
+    text-decoration: underline;
+}
+
+a:visited {
+    color: #a03033;
+}
+
+a:hover {
+    /*color: #444f51;*/
+    color: #a03033;
+    text-decoration: none;
+}
+
+a:active {
+    color: #a03033;
+}
+
+textarea {
+    min-height: 75px;
+}
+
+/* input */
+input[type="text"]
+{
+    /*border: 1px solid #ccc;*/
+    border: solid 1px #dd7500;
+    padding: 2px;
+    /*font-size: 1.2em;*/
+    color: #dd7500;
+    width: 200px;
+}
+
+.TextAreaEdit
+{
+    width: 500px;
+    
+}
+
+input:focus, select:focus
+{
+    border: solid 1px #a03033;
+}
+
+select {
+    border: solid 1px #dd7500;
+    padding: 2px;
+    /*font-size: 1.2em;*/
+    color: #dd7500;
+    /*color: #444;*/
+}
+
+.detailsPicturePreview
+{
+    border-right-color:#a03033;
+    border-right-style: solid;
+    border-right-width: 1px;
+}
+
+/* gridview */
+.gridViewRowHighlight
+{
+    background-color: #ede4b1;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.gridViewRowUnHighlight
+{
+    background-color: white;
+    vertical-align: middle;
+    text-align: center;
+    /*vertical-align:middle;*/
+    /*color: #a03033;*/   
+    
+}
+
+/* listbox */
+.ListBoxMaxWidth:
+{
+    overflow: auto;
+}

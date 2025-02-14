@@ -1,0 +1,80 @@
+﻿<%@ Master Language="C#" CodeBehind="Site.master.cs" Inherits="BookManagement.Site" %>
+
+<%@ Register src="UI/UserControls/Header.ascx" tagname="Header" tagprefix="uc1" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Endava Book Management</title>
+    <link href="UI/Css/Site.css" rel="stylesheet" type="text/css" />
+
+            <link rel="Stylesheet" type="text/css" href="UI/Scripts/datepicker/css/ui-lightness/jquery-ui-1.10.1.custom.css" />
+
+            <link id="Link1" runat="server" rel="shortcut icon" href="~/favicon.ico" type="image/x-icon" />
+<link rel="shortcut icon" href="favicon.ico?id=123" type="image/vnd.microsoft.icon" />
+
+    <asp:ContentPlaceHolder id="head" runat="server">
+
+    </asp:ContentPlaceHolder>
+    
+</head>
+<body">
+    <form id="form1" runat="server">
+    <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true"/>
+            <table class="mainContent">
+                    <tr>
+                        <td>
+                            <asp:Image ID="imgLogo" runat="server" ImageUrl="~/DynamicData/Content/Images/endava/endava_logo.png" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="headerContent">
+                            <h1>Book Library Management</h1>
+                            <div class="lineBreak">
+                                &nbsp;
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center">                      
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <div style="text-align: center">
+                                                <uc1:Header ID="Header1" runat="server" />                                            
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                        </td>
+                    </tr>
+            </table>
+            <table class="mainContent">
+                <tr>
+                    <td class="headerContent">
+                        <div class="lineBreakSmall">
+                            &nbsp;
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <table class="mainContent">
+                        <tr>
+                            <td>
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
+                                            </asp:ContentPlaceHolder>
+                                        </td>
+                                    </tr>
+                                </table>                          
+                            </td>
+                        </tr>
+            </table>
+     </form>
+
+</body>
+</html>
+

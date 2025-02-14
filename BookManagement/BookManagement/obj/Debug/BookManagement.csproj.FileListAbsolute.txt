@@ -1,0 +1,16 @@
+C:\Users\adrian\Desktop\Endava\BM\BookManagement\BookManagement\obj\Debug\BookManagement.csproj.ResolveComReference.cache
+C:\Users\adrian\Desktop\Endava\BM\BookManagement\BookManagement\obj\Debug\BookManagement.dll
+C:\Users\adrian\Desktop\Endava\BM\BookManagement\BookManagement\obj\Debug\BookManagement.pdb
+C:\Users\adrian\Desktop\Endava\BM\BookManagement\BookManagement\bin\BookManagement.dll
+C:\Users\adrian\Desktop\Endava\BM\BookManagement\BookManagement\bin\BookManagement.pdb
+D:\Work Adrian Mihailescu\NET\BookManagement\BookManagement\bin\BookManagement.dll
+D:\Work Adrian Mihailescu\NET\BookManagement\BookManagement\bin\BookManagement.pdb
+D:\Work Adrian Mihailescu\NET\BookManagement\BookManagement\obj\Debug\ResolveAssemblyReference.cache
+D:\Work Adrian Mihailescu\NET\BookManagement\BookManagement\obj\Debug\BookManagement.csproj.ResolveComReference.cache
+D:\Work Adrian Mihailescu\NET\BookManagement\BookManagement\obj\Debug\BookManagement.dll
+D:\Work Adrian Mihailescu\NET\BookManagement\BookManagement\obj\Debug\BookManagement.pdb
+C:\Users\adrian\Desktop\old\BookManagement\bin\BookManagement.dll
+C:\Users\adrian\Desktop\old\BookManagement\bin\BookManagement.pdb
+C:\Users\adrian\Desktop\old\BookManagement\obj\Debug\BookManagement.csproj.ResolveComReference.cache
+C:\Users\adrian\Desktop\old\BookManagement\obj\Debug\BookManagement.dll
+C:\Users\adrian\Desktop\old\BookManagement\obj\Debug\BookManagement.pdb

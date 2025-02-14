@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BookManagementModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <EntityContainer Name="BookManagementEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Author" EntityType="BookManagementModel.Author" />
+    <EntitySet Name="Book" EntityType="BookManagementModel.Book" />
+    <EntitySet Name="Category" EntityType="BookManagementModel.Category" />
+    <EntitySet Name="Lease" EntityType="BookManagementModel.Lease" />
+    <EntitySet Name="User" EntityType="BookManagementModel.User" />
+    <AssociationSet Name="FK_Book_Author" Association="BookManagementModel.FK_Book_Author">
+      <End Role="Author" EntitySet="Author" />
+      <End Role="Book" EntitySet="Book" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Book_Category" Association="BookManagementModel.FK_Book_Category">
+      <End Role="Category" EntitySet="Category" />
+      <End Role="Book" EntitySet="Book" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Lease_Book" Association="BookManagementModel.FK_Lease_Book">
+      <End Role="Book" EntitySet="Book" />
+      <End Role="Lease" EntitySet="Lease" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Lease_Users" Association="BookManagementModel.FK_Lease_Users">
+      <End Role="User" EntitySet="User" />
+      <End Role="Lease" EntitySet="Lease" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Author">
+    <Key>
+      <PropertyRef Name="IDAuthor" />
+    </Key>
+    <Property Name="IDAuthor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AuthorName" Type="String" Nullable="false" MaxLength="1000" Unicode="true" FixedLength="false" />
+    <Property Name="FlagDel" Type="Boolean" />
+    <NavigationProperty Name="Book" Relationship="BookManagementModel.FK_Book_Author" FromRole="Author" ToRole="Book" />
+  </EntityType>
+  <EntityType Name="Book">
+    <Key>
+      <PropertyRef Name="IDBook" />
+    </Key>
+    <Property Name="IDBook" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IDCategory" Type="Int32" Nullable="false" />
+    <Property Name="IDAuthor" Type="Int32" Nullable="false" />
+    <Property Name="BookName" Type="String" Nullable="false" MaxLength="1000" Unicode="true" FixedLength="false" />
+    <Property Name="ISBN" Type="String" Nullable="false" MaxLength="1000" Unicode="true" FixedLength="false" />
+    <Property Name="Stock" Type="Int32" Nullable="false" />
+    <Property Name="HasDisk" Type="Boolean" />
+    <Property Name="FlagDel" Type="Boolean" />
+    <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <NavigationProperty Name="Author" Relationship="BookManagementModel.FK_Book_Author" FromRole="Book" ToRole="Author" />
+    <NavigationProperty Name="Category" Relationship="BookManagementModel.FK_Book_Category" FromRole="Book" ToRole="Category" />
+    <NavigationProperty Name="Lease" Relationship="BookManagementModel.FK_Lease_Book" FromRole="Book" ToRole="Lease" />
+  </EntityType>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="IDCategory" />
+    </Key>
+    <Property Name="IDCategory" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CategoryName" Type="String" MaxLength="1000" Unicode="true" FixedLength="false" />
+    <Property Name="FlagDel" Type="Boolean" />
+    <NavigationProperty Name="Book" Relationship="BookManagementModel.FK_Book_Category" FromRole="Category" ToRole="Book" />
+  </EntityType>
+  <EntityType Name="Lease">
+    <Key>
+      <PropertyRef Name="IDLease" />
+    </Key>
+    <Property Name="IDLease" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IDBook" Type="Int32" Nullable="false" />
+    <Property Name="IDUser" Type="Int32" Nullable="false" />
+    <Property Name="LeaseDate" Type="DateTime" />
+    <Property Name="ScheduledReturnDate" Type="DateTime" Nullable="false" />
+    <Property Name="ActualReturnDate" Type="DateTime" />
+    <Property Name="Copies" Type="Int32" Nullable="false" />
+    <Property Name="FlagDel" Type="Boolean" />
+    <Property Name="Remarks" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Book" Relationship="BookManagementModel.FK_Lease_Book" FromRole="Lease" ToRole="Book" />
+    <NavigationProperty Name="User" Relationship="BookManagementModel.FK_Lease_Users" FromRole="Lease" ToRole="User" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="IDUser" />
+    </Key>
+    <Property Name="IDUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" Nullable="false" MaxLength="1000" Unicode="true" FixedLength="false" />
+    <Property Name="FullName" Type="String" Nullable="false" MaxLength="1000" Unicode="true" FixedLength="false" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="1000" Unicode="true" FixedLength="false" />
+    <Property Name="Address" Type="String" Nullable="false" MaxLength="1000" Unicode="true" FixedLength="false" />
+    <Property Name="FlagDel" Type="Boolean" />
+    <Property Name="CNP" Type="String" Nullable="false" MaxLength="1000" Unicode="true" FixedLength="false" />
+    <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <NavigationProperty Name="Lease" Relationship="BookManagementModel.FK_Lease_Users" FromRole="User" ToRole="Lease" />
+  </EntityType>
+  <Association Name="FK_Book_Author">
+    <End Role="Author" Type="BookManagementModel.Author" Multiplicity="1" />
+    <End Role="Book" Type="BookManagementModel.Book" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Author">
+        <PropertyRef Name="IDAuthor" />
+      </Principal>
+      <Dependent Role="Book">
+        <PropertyRef Name="IDAuthor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Book_Category">
+    <End Role="Category" Type="BookManagementModel.Category" Multiplicity="1" />
+    <End Role="Book" Type="BookManagementModel.Book" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="IDCategory" />
+      </Principal>
+      <Dependent Role="Book">
+        <PropertyRef Name="IDCategory" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Lease_Book">
+    <End Role="Book" Type="BookManagementModel.Book" Multiplicity="1" />
+    <End Role="Lease" Type="BookManagementModel.Lease" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Book">
+        <PropertyRef Name="IDBook" />
+      </Principal>
+      <Dependent Role="Lease">
+        <PropertyRef Name="IDBook" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Lease_Users">
+    <End Role="User" Type="BookManagementModel.User" Multiplicity="1" />
+    <End Role="Lease" Type="BookManagementModel.Lease" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="IDUser" />
+      </Principal>
+      <Dependent Role="Lease">
+        <PropertyRef Name="IDUser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

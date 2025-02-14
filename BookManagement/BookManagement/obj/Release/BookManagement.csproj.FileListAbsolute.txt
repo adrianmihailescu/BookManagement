@@ -1,0 +1,2 @@
+D:\Work Adrian Mihailescu\NET\BookManagement\BookManagement\obj\Release\ResolveAssemblyReference.cache
+D:\Work Adrian Mihailescu\NET\BookManagement\BookManagement\obj\Release\BookManagement.csproj.ResolveComReference.cache

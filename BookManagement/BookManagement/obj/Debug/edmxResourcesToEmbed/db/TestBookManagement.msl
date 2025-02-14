@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TestBookManagementModelStoreContainer" CdmEntityContainer="TestBookManagementEntities">
+    <EntitySetMapping Name="Author">
+      <EntityTypeMapping TypeName="TestBookManagementModel.Author">
+        <MappingFragment StoreEntitySet="Author">
+          <ScalarProperty Name="IDAuthor" ColumnName="IDAuthor" />
+          <ScalarProperty Name="AuthorName" ColumnName="AuthorName" />
+          <ScalarProperty Name="FlagDel" ColumnName="FlagDel" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Book">
+      <EntityTypeMapping TypeName="TestBookManagementModel.Book">
+        <MappingFragment StoreEntitySet="Book">
+          <ScalarProperty Name="IDBook" ColumnName="IDBook" />
+          <ScalarProperty Name="IDCategory" ColumnName="IDCategory" />
+          <ScalarProperty Name="IDAuthor" ColumnName="IDAuthor" />
+          <ScalarProperty Name="BookName" ColumnName="BookName" />
+          <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+          <ScalarProperty Name="Stock" ColumnName="Stock" />
+          <ScalarProperty Name="HasDisk" ColumnName="HasDisk" />
+          <ScalarProperty Name="FlagDel" ColumnName="FlagDel" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Category">
+      <EntityTypeMapping TypeName="TestBookManagementModel.Category">
+        <MappingFragment StoreEntitySet="Category">
+          <ScalarProperty Name="IDCategory" ColumnName="IDCategory" />
+          <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+          <ScalarProperty Name="FlagDel" ColumnName="FlagDel" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Lease">
+      <EntityTypeMapping TypeName="TestBookManagementModel.Lease">
+        <MappingFragment StoreEntitySet="Lease">
+          <ScalarProperty Name="IDLease" ColumnName="IDLease" />
+          <ScalarProperty Name="IDBook" ColumnName="IDBook" />
+          <ScalarProperty Name="IDUser" ColumnName="IDUser" />
+          <ScalarProperty Name="LeaseDate" ColumnName="LeaseDate" />
+          <ScalarProperty Name="ScheduledReturnDate" ColumnName="ScheduledReturnDate" />
+          <ScalarProperty Name="ActualReturnDate" ColumnName="ActualReturnDate" />
+          <ScalarProperty Name="Copies" ColumnName="Copies" />
+          <ScalarProperty Name="FlagDel" ColumnName="FlagDel" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="User">
+      <EntityTypeMapping TypeName="TestBookManagementModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="IDUser" ColumnName="IDUser" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="FlagDel" ColumnName="FlagDel" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
